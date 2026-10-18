@@ -6,7 +6,10 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-app.use(express.static('public'));
+// I-serve ang index.html direkta sa root
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 
 let timer = 300; // 5 minutes (300 seconds)
 let timerInterval = null;
@@ -24,15 +27,12 @@ const correctAnswers = {
 };
 
 io.on('connection', (socket) => {
-    // Send initial state to newly connected client
     socket.emit('updateState', { groupScores, timer, timerRunning });
 
-    // Handle incoming answer submissions
     socket.on('submitAnswer', ({ groupName, questionId, answer }) => {
-        if (timer <= 0) return; // Prevent answering if time is up
+        if (timer <= 0) return;
         groupAnswers[groupName][questionId] = answer;
         
-        // Recalculate score for this group
         let score = 0;
         for (let q in correctAnswers) {
             if (groupAnswers[groupName][q] === correctAnswers[q]) {
@@ -41,11 +41,9 @@ io.on('connection', (socket) => {
         }
         groupScores[groupName] = score;
 
-        // Broadcast updated scores to ALL devices instantly
         io.emit('updateState', { groupScores, timer, timerRunning });
     });
 
-    // Control global timer
     socket.on('startTimer', () => {
         if (!timerRunning) {
             timerRunning = true;
