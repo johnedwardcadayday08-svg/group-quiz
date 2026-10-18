@@ -6,7 +6,6 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-// I-serve ang index.html direkta sa root
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
@@ -31,8 +30,11 @@ io.on('connection', (socket) => {
 
     socket.on('submitAnswer', ({ groupName, questionId, answer }) => {
         if (timer <= 0) return;
-        groupAnswers[groupName][questionId] = answer;
         
+        groupAnswers[groupName][questionId] = answer;
+        const isCorrect = answer === correctAnswers[questionId];
+        
+        // Recalculate score
         let score = 0;
         for (let q in correctAnswers) {
             if (groupAnswers[groupName][q] === correctAnswers[q]) {
@@ -41,6 +43,10 @@ io.on('connection', (socket) => {
         }
         groupScores[groupName] = score;
 
+        // Send instant feedback back to the specific group
+        socket.emit('answerFeedback', { questionId, isCorrect });
+
+        // Broadcast updated scores to all devices (including the teacher's big screen)
         io.emit('updateState', { groupScores, timer, timerRunning });
     });
 
