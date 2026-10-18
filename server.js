@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-let timer = 300; // 5 minutes (300 seconds)
+let timer = 90; // 1 minute and 30 seconds (90 seconds)
 let timerInterval = null;
 let timerRunning = false;
 let groupScores = { "Group 1": 0, "Group 2": 0, "Group 3": 0, "Group 4": 0 };
@@ -31,6 +31,9 @@ io.on('connection', (socket) => {
     socket.on('submitAnswer', ({ groupName, questionId, answer }) => {
         if (timer <= 0) return;
         
+        // Prevent changing answer if already answered
+        if (groupAnswers[groupName][questionId] !== undefined) return;
+
         groupAnswers[groupName][questionId] = answer;
         const isCorrect = answer === correctAnswers[questionId];
         
@@ -71,7 +74,7 @@ io.on('connection', (socket) => {
     socket.on('resetGame', () => {
         clearInterval(timerInterval);
         timerInterval = null;
-        timer = 300;
+        timer = 90;
         timerRunning = false;
         groupScores = { "Group 1": 0, "Group 2": 0, "Group 3": 0, "Group 4": 0 };
         groupAnswers = { "Group 1": {}, "Group 2": {}, "Group 3": {}, "Group 4": {} };

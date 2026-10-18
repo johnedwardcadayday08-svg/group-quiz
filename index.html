@@ -76,7 +76,7 @@
         <div id="teacher-view" class="hidden">
             <h1>Teacher Real-Time Monitor</h1>
             <div class="header-bar">
-                <span id="teacher-timer">Time Left: 05:00</span>
+                <span id="teacher-timer">Time Left: 01:30</span>
                 <div>
                     <button class="btn" onclick="startTimer()">Start Quiz</button>
                     <button class="btn" style="background:var(--danger)" onclick="resetGame()">Reset Game</button>
@@ -90,82 +90,101 @@
             
             <hr style="margin: 30px 0; border:0; border-top:1px solid #cbd5e1;">
             <h2>Answer Key & Independent Explanations</h2>
-            <div id="teacher-answer-key"></div>
+            <div id="teacher-answer-key">
+                <div class="question-card">
+                    <p><b>Q1:</b> Magna Carta for Disabled Persons</p>
+                    <div class="explanation"><b>Explanation:</b> Republic Act No. 7277 provides the rehabilitation, self-development, and integration of disabled persons into society.</div>
+                </div>
+                <div class="question-card">
+                    <p><b>Q2:</b> Protection Against Child Abuse</p>
+                    <div class="explanation"><b>Explanation:</b> Republic Act No. 7610 institutes policies to protect children from all forms of abuse, neglect, and exploitation.</div>
+                </div>
+                <div class="question-card">
+                    <p><b>Q3:</b> Indigenous Peoples' Rights Act (IPRA)</p>
+                    <div class="explanation"><b>Explanation:</b> Republic Act No. 8371 recognizes, protects, and promotes the rights of indigenous cultural communities and indigenous peoples.</div>
+                </div>
+                <div class="question-card">
+                    <p><b>Q4:</b> Fundamental Supreme Law</p>
+                    <div class="explanation"><b>Explanation:</b> The 1987 Philippine Constitution is the fundamental framework from which all other statutes and rights derive.</div>
+                </div>
+                <div class="question-card">
+                    <p><b>Q5:</b> Equal Opportunity for Employment and Training</p>
+                    <div class="explanation"><b>Explanation:</b> Republic Act No. 7277 strictly outlines provisions protecting disabled persons from employment discrimination.</div>
+                </div>
+                <div class="question-card">
+                    <p><b>Q6:</b> Penalizes Child Trafficking</p>
+                    <div class="explanation"><b>Explanation:</b> Republic Act No. 7610 specifies severe penalties for child trafficking, child prostitution, and other abuses against minors.</div>
+                </div>
+            </div>
         </div>
 
         <!-- STUDENT GROUP VIEW -->
         <div id="student-view" class="hidden">
             <h1 id="group-title">Group Dashboard</h1>
             <div class="header-bar">
-                <span id="student-timer">Time Left: 05:00</span>
+                <span id="student-timer">Time Left: 01:30</span>
                 <span id="group-score-display">Score: 0 / 6</span>
             </div>
 
             <div id="quiz-questions">
                 <!-- Q1 -->
-                <div class="question-card" data-q="q1">
+                <div class="question-card" id="card-q1">
                     <p><b>Q1:</b> Which law is known as the Magna Carta for Disabled Persons?</p>
                     <div class="options">
                         <label><input type="radio" name="q1" value="RA7277" onchange="submitAns('q1', 'RA7277')"> Republic Act No. 7277</label>
                         <label><input type="radio" name="q1" value="RA7610" onchange="submitAns('q1', 'RA7610')"> Republic Act No. 7610</label>
                         <label><input type="radio" name="q1" value="RA8371" onchange="submitAns('q1', 'RA8371')"> Republic Act No. 8371</label>
                     </div>
-                    <div class="explanation"><b>Explanation for Q1:</b> Republic Act No. 7277 provides the rehabilitation, self-development, and integration of disabled persons into the mainstream of society.</div>
                 </div>
 
                 <!-- Q2 -->
-                <div class="question-card" data-q="q2">
+                <div class="question-card" id="card-q2">
                     <p><b>Q2:</b> What law provides stronger deterrence and special protection against child abuse, exploitation and discrimination?</p>
                     <div class="options">
                         <label><input type="radio" name="q2" value="RA7277" onchange="submitAns('q2', 'RA7277')"> Republic Act No. 7277</label>
                         <label><input type="radio" name="q2" value="RA7610" onchange="submitAns('q2', 'RA7610')"> Republic Act No. 7610</label>
                         <label><input type="radio" name="q2" value="RA8371" onchange="submitAns('q2', 'RA8371')"> Republic Act No. 8371</label>
                     </div>
-                    <div class="explanation"><b>Explanation for Q2:</b> Republic Act No. 7610 institutes policies to protect children from all forms of abuse, neglect, cruelty, exploitation, and discrimination.</div>
                 </div>
 
                 <!-- Q3 -->
-                <div class="question-card" data-q="q3">
+                <div class="question-card" id="card-q3">
                     <p><b>Q3:</b> Which law is recognized as the Indigenous Peoples' Rights Act (IPRA)?</p>
                     <div class="options">
                         <label><input type="radio" name="q3" value="RA7610" onchange="submitAns('q3', 'RA7610')"> Republic Act No. 7610</label>
                         <label><input type="radio" name="q3" value="RA8371" onchange="submitAns('q3', 'RA8371')"> Republic Act No. 8371</label>
                         <label><input type="radio" name="q3" value="CONST" onchange="submitAns('q3', 'CONST')"> 1987 Constitution</label>
                     </div>
-                    <div class="explanation"><b>Explanation for Q3:</b> Republic Act No. 8371 recognizes, protects, and promotes the rights of indigenous cultural communities and indigenous peoples.</div>
                 </div>
 
                 <!-- Q4 -->
-                <div class="question-card" data-q="q4">
+                <div class="question-card" id="card-q4">
                     <p><b>Q4:</b> What supreme law of the Philippines serves as the fundamental framework for all civil rights and state policies?</p>
                     <div class="options">
                         <label><input type="radio" name="q4" value="RA7277" onchange="submitAns('q4', 'RA7277')"> Republic Act No. 7277</label>
                         <label><input type="radio" name="q4" value="CONST" onchange="submitAns('q4', 'CONST')"> The 1987 Philippine Constitution</label>
                         <label><input type="radio" name="q4" value="RA8371" onchange="submitAns('q4', 'RA8371')"> Republic Act No. 8371</label>
                     </div>
-                    <div class="explanation"><b>Explanation for Q4:</b> The 1987 Philippine Constitution is the fundamental law of the land from which all other statutes, legal codes, and governmental authority derive.</div>
                 </div>
 
                 <!-- Q5 -->
-                <div class="question-card" data-q="q5">
+                <div class="question-card" id="card-q5">
                     <p><b>Q5:</b> Which statutory framework specifically mandates equal opportunity for employment and training for persons with disabilities?</p>
                     <div class="options">
                         <label><input type="radio" name="q5" value="RA7277" onchange="submitAns('q5', 'RA7277')"> Republic Act No. 7277</label>
                         <label><input type="radio" name="q5" value="RA7610" onchange="submitAns('q5', 'RA7610')"> Republic Act No. 7610</label>
                         <label><input type="radio" name="q5" value="CONST" onchange="submitAns('q5', 'CONST')"> 1987 Constitution</label>
                     </div>
-                    <div class="explanation"><b>Explanation for Q5:</b> Republic Act No. 7277 strictly outlines provisions protecting disabled persons from employment discrimination and securing vocational training accessibility.</div>
                 </div>
 
                 <!-- Q6 -->
-                <div class="question-card" data-q="q6">
+                <div class="question-card" id="card-q6">
                     <p><b>Q6:</b> Which specific legislation penalizes child trafficking and protects children in especially difficult circumstances?</p>
                     <div class="options">
                         <label><input type="radio" name="q6" value="RA8371" onchange="submitAns('q6', 'RA8371')"> Republic Act No. 8371</label>
                         <label><input type="radio" name="q6" value="RA7610" onchange="submitAns('q6', 'RA7610')"> Republic Act No. 7610</label>
                         <label><input type="radio" name="q6" value="RA7277" onchange="submitAns('q6', 'RA7277')"> Republic Act No. 7277</label>
                     </div>
-                    <div class="explanation"><b>Explanation for Q6:</b> Republic Act No. 7610 specifies severe penalties for child trafficking, child prostitution, and other abuses committed against minors.</div>
                 </div>
             </div>
         </div>
@@ -174,6 +193,7 @@
     <script>
         const socket = io();
         let myGroup = null;
+        let answeredQuestions = {};
 
         function selectRole(role) {
             if (role === 'teacher') {
@@ -199,6 +219,18 @@
 
         function submitAns(questionId, answer) {
             if (!myGroup) return;
+            if (answeredQuestions[questionId]) return; // Block if already answered
+
+            // Lock this specific question's inputs permanently for this group
+            answeredQuestions[questionId] = true;
+            const card = document.getElementById(`card-${questionId}`);
+            if (card) {
+                card.querySelectorAll('input').forEach(input => {
+                    input.disabled = true;
+                });
+                card.style.opacity = "0.75";
+            }
+
             socket.emit('submitAnswer', { groupName: myGroup, questionId, answer });
         }
 
@@ -263,7 +295,7 @@
         });
 
         socket.on('timeUp', () => {
-            alert("Time is up! The 5-minute quiz session has concluded.");
+            alert("Time is up! The quiz session has concluded.");
             document.querySelectorAll('input').forEach(input => input.disabled = true);
         });
 
