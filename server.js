@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-let timer = 90; // 1 minute and 30 seconds (90 seconds)
+let timer = 90; // 90 seconds (1 minute and 30 seconds)
 let timerInterval = null;
 let timerRunning = false;
 let groupScores = { "Group 1": 0, "Group 2": 0, "Group 3": 0, "Group 4": 0 };
@@ -30,14 +30,11 @@ io.on('connection', (socket) => {
 
     socket.on('submitAnswer', ({ groupName, questionId, answer }) => {
         if (timer <= 0) return;
-        
-        // Prevent changing answer if already answered
         if (groupAnswers[groupName][questionId] !== undefined) return;
 
         groupAnswers[groupName][questionId] = answer;
         const isCorrect = answer === correctAnswers[questionId];
         
-        // Recalculate score
         let score = 0;
         for (let q in correctAnswers) {
             if (groupAnswers[groupName][q] === correctAnswers[q]) {
@@ -46,10 +43,7 @@ io.on('connection', (socket) => {
         }
         groupScores[groupName] = score;
 
-        // Send instant feedback back to the specific group
         socket.emit('answerFeedback', { questionId, isCorrect });
-
-        // Broadcast updated scores to all devices (including the teacher's big screen)
         io.emit('updateState', { groupScores, timer, timerRunning });
     });
 

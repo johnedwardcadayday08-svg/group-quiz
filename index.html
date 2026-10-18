@@ -219,9 +219,8 @@
 
         function submitAns(questionId, answer) {
             if (!myGroup) return;
-            if (answeredQuestions[questionId]) return; // Block if already answered
+            if (answeredQuestions[questionId]) return;
 
-            // Lock this specific question's inputs permanently for this group
             answeredQuestions[questionId] = true;
             const card = document.getElementById(`card-${questionId}`);
             if (card) {
@@ -234,7 +233,6 @@
             socket.emit('submitAnswer', { groupName: myGroup, questionId, answer });
         }
 
-        // Handle instant feedback (Check / X popup)
         socket.on('answerFeedback', ({ questionId, isCorrect }) => {
             const popup = document.getElementById('feedback-popup');
             if (isCorrect) {
@@ -250,20 +248,17 @@
             }, 1800);
         });
 
-        // Sync State Across Devices
         socket.on('updateState', ({ groupScores, timer, timerRunning }) => {
-            // Update Timer display
             let mins = Math.floor(timer / 60).toString().padStart(2, '0');
             let secs = (timer % 60).toString().padStart(2, '0');
             let timeStr = `Time Left: ${mins}:${secs}`;
             document.getElementById('teacher-timer').innerText = timeStr;
             document.getElementById('student-timer').innerText = timeStr;
 
-            // Update Teacher Big Screen Bar Chart (Sorted Highest to Lowest)
             const sortedGroups = Object.entries(groupScores).sort((a, b) => b[1] - a[1]);
             let chartHTML = '';
             sortedGroups.forEach(([group, score]) => {
-                let percentage = (score / 6) * 100; // 6 total questions
+                let percentage = (score / 6) * 100;
                 chartHTML += `
                     <div class="bar-row">
                         <div class="bar-label">${group}</div>
@@ -276,7 +271,6 @@
             });
             document.getElementById('bar-chart').innerHTML = chartHTML;
 
-            // Update Student Score Display if active group
             if (myGroup && groupScores[myGroup] !== undefined) {
                 document.getElementById('group-score-display').innerText = `Score: ${groupScores[myGroup]} / 6`;
             }
