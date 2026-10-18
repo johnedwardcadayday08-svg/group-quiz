@@ -10,47 +10,105 @@
             --primary: #4f46e5;
             --success: #16a34a;
             --danger: #dc2626;
-            --bg: #f8fafc;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                        url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #1e293b;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
-        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); 
+        }
+        h1 { font-size: 24px; }
+        h2 { font-size: 20px; }
         h1, h2 { text-align: center; color: #0f172a; }
         .hidden { display: none !important; }
         
         /* Role Selection */
-        #role-select { text-align: center; padding: 40px 0; }
-        .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; margin: 5px; transition: background 0.2s; }
+        #role-select { text-align: center; padding: 20px 0; }
+        .btn { 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            font-size: 16px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin: 6px; 
+            transition: background 0.2s; 
+        }
         .btn:hover { background: #4338ca; }
         .group-btn { background: #0284c7; }
         .group-btn:hover { background: #0369a1; }
 
         /* Timer Header */
-        .header-bar { display: flex; justify-content: space-between; align-items: center; background: #e2e8f0; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; font-size: 18px; }
+        .header-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: #e2e8f0; 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            font-weight: bold; 
+            font-size: 18px; 
+        }
         
         /* Teacher Big Screen Bar Chart */
-        .bar-chart-container { margin: 20px 0; background: #f1f5f9; padding: 20px; border-radius: 8px; }
+        .bar-chart-container { margin: 20px 0; background: #f1f5f9; padding: 15px; border-radius: 8px; }
         .bar-row { display: flex; align-items: center; margin: 12px 0; }
-        .bar-label { width: 100px; font-weight: bold; }
-        .bar-track { flex-grow: 1; background: #cbd5e1; height: 30px; border-radius: 6px; overflow: hidden; margin: 0 15px; position: relative; }
+        .bar-label { width: 90px; font-weight: bold; font-size: 14px; }
+        .bar-track { flex-grow: 1; background: #cbd5e1; height: 26px; border-radius: 6px; overflow: hidden; margin: 0 10px; position: relative; }
         .bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease-in-out; border-radius: 6px; }
-        .bar-score { font-weight: bold; width: 40px; text-align: right; }
+        .bar-score { font-weight: bold; width: 40px; text-align: right; font-size: 14px; }
 
         /* Quiz Questions & Explanations */
-        .question-card { background: #fff; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .options label { display: block; padding: 10px 14px; margin: 6px 0; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+        .question-card { background: #fff; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .options label { 
+            display: flex; 
+            align-items: center; 
+            padding: 12px; 
+            margin: 8px 0; 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 15px; 
+            transition: background 0.2s; 
+        }
+        .options label input { margin-right: 10px; transform: scale(1.2); }
         .options label:hover { background: #e2e8f0; }
-        .explanation { margin-top: 10px; padding: 12px; background: #eff6ff; border-left: 4px solid var(--primary); font-size: 14px; color: #1e3a8a; border-radius: 0 6px 6px 0; }
+        .explanation { margin-top: 10px; padding: 12px; background: #eff6ff; border-left: 4px solid var(--primary); font-size: 13px; color: #1e3a8a; border-radius: 0 6px 6px 0; }
 
         /* Popup Feedback (Check / X) */
         #feedback-popup { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; font-size: 18px; font-weight: bold; color: white; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: none; }
         .feedback-correct { background-color: var(--success); }
         .feedback-wrong { background-color: var(--danger); }
+
+        /* Responsive Design para sa Cellphone */
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            .container { padding: 12px; border-radius: 8px; }
+            h1 { font-size: 20px; }
+            h2 { font-size: 16px; }
+            .header-bar { font-size: 14px; padding: 10px; flex-direction: column; gap: 8px; text-align: center; }
+            .btn { width: 100%; margin: 4px 0; padding: 10px; font-size: 15px; }
+            .bar-label { width: 70px; font-size: 12px; }
+            .bar-score { font-size: 12px; }
+            .options label { font-size: 14px; padding: 10px; }
+        }
     </style>
 </head>
 <body>
