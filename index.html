@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Group Race Challenge</title>
+    <style>
+        :root { --primary: #2c3e50; --secondary: #3498db; --success: #27ae60; --error: #c0392b; --light: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); margin: 0; padding: 15px; color: #333; }
+        .container { max-width: 700px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); text-align: center; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 20px; font-style: italic; }
+        .hidden { display: none !important; }
+        
+        /* Login Screen */
+        .group-btn-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .group-btn { padding: 15px; background: var(--secondary); color: white; border: none; font-size: 1.2em; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .group-btn:hover { background: #2980b9; }
+
+        /* Timer Box */
+        .timer-box { background: var(--primary); color: white; padding: 12px; text-align: center; border-radius: 6px; font-size: 1.6em; font-family: monospace; margin-bottom: 20px; font-weight: bold; }
+        
+        .question-card { background: #fdfefe; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        select { width: 100%; padding: 10px; margin-top: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; }
+        
+        /* Scoreboard Panel */
+        .scoreboard-panel { margin-top: 20px; background: #ebf5fb; padding: 15px; border-radius: 8px; border: 1px solid #bce8f1; }
+        .scoreboard-panel h3 { margin-top: 0; color: var(--primary); text-align: center; }
+        .score-row { display: flex; justify-content: space-between; padding: 10px 15px; background: white; margin-bottom: 8px; border-radius: 6px; font-weight: bold; border-left: 5px solid var(--secondary); font-size: 1.1em; }
+        
+        /* Host Controls for Timer */
+        .host-controls { text-align: center; margin-bottom: 15px; }
+        .start-btn { background: var(--success); color: white; border: none; padding: 10px 20px; font-size: 1em; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .start-btn:hover { background: #219653; }
+
+        /* Explanation Box */
+        .explanation-section { margin-top: 25px; border-top: 2px dashed #bdc3c7; padding-top: 20px; }
+        .explanation-card { background: #fef9e7; border: 1px solid #f9e79f; padding: 12px; border-radius: 6px; margin-bottom: 10px; font-size: 0.95em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🛡️ Real-Time Group Race Challenge</h1>
+    <div class="subtitle">Interactive Quiz on Philippine Social Legislation & Constitutional Rights</div>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="login-screen">
+        <h3>Select Your Group Device:</h3>
+        <p style="color: #666; font-size: 0.9em;">Choose your group designation to log into your dedicated interactive space:</p>
+        <div class="group-btn-container">
+            <button class="group-btn" onclick="joinGroup('Group 1')">Login as Group 1</button>
+            <button class="group-btn" onclick="joinGroup('Group 2')">Login as Group 2</button>
+            <button class="group-btn" onclick="joinGroup('Group 3')">Login as Group 3</button>
+            <button class="group-btn" onclick="joinGroup('Group 4')">Login as Group 4</button>
+        </div>
+    </div>
+
+    <!-- 2. QUIZ SCREEN -->
+    <div id="quiz-screen" class="hidden">
+        <h2 id="group-title" style="color: var(--secondary); text-align: center; margin-top: 0;"></h2>
+        
+        <!-- Timer Display -->
+        <div class="timer-box" id="timer-display">Time Remaining: 05:00</div>
+
+        <div class="host-controls">
+            <button class="start-btn" id="start-timer-btn" onclick="requestStartTimer()">▶ Start 5-Min Timer (Host/Leader)</button>
+        </div>
+
+        <!-- Q1 -->
+        <div class="question-card">
+            <p><strong>1. PWD Access:</strong> A public library installs wheelchair ramps, elevators, and tactile paving to assist mobility-impaired citizens.</p>
+            <select id="q1" onchange="submitAns('q1', this.value)">
+                <option value="">-- Choose Applicable Law --</option>
+                <option value="RA7610">RA 7610 (Child Abuse Act)</option>
+                <option value="RA8371">RA 8371 (IPRA)</option>
+                <option value="CONST">Article XIV of the Constitution</option>
+                <option value="RA7277">RA 7277 (Magna Carta for PWDs)</option>
+            </select>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card">
+            <p><strong>2. Child Protection:</strong> Social welfare officers rescue an exploited minor from hazardous child labor and domestic abuse.</p>
+            <select id="q2" onchange="submitAns('q2', this.value)">
+                <option value="">-- Choose Applicable Law --</option>
+                <option value="RA7610">RA 7610 (Child Abuse Act)</option>
+                <option value="RA8371">RA 8371 (IPRA)</option>
+                <option value="CONST">Article XIV of the Constitution</option>
+                <option value="RA7277">RA 7277 (Magna Carta for PWDs)</option>
+            </select>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card">
+            <p><strong>3. Indigenous Domain:</strong> An indigenous community legally defends its ancestral lands, sacred domains, and cultural customs.</p>
+            <select id="q3" onchange="submitAns('q3', this.value)">
+                <option value="">-- Choose Applicable Law --</option>
+                <option value="RA7610">RA 7610 (Child Abuse Act)</option>
+                <option value="RA8371">RA 8371 (IPRA)</option>
+                <option value="CONST">Article XIV of the Constitution</option>
+                <option value="RA7277">RA 7277 (Magna Carta for PWDs)</option>
+            </select>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card">
+            <p><strong>4. Education & Culture:</strong> A state university updates its curriculum to prioritize nationalism, scientific research, arts, and quality schooling.</p>
+            <select id="q4" onchange="submitAns('q4', this.value)">
+                <option value="">-- Choose Applicable Law --</option>
+                <option value="RA7610">RA 7610 (Child Abuse Act)</option>
+                <option value="RA8371">RA 8371 (IPRA)</option>
+                <option value="CONST">Article XIV of the Constitution</option>
+                <option value="RA7277">RA 7277 (Magna Carta for PWDs)</option>
+            </select>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card">
+            <p><strong>5. PWD Employment:</strong> A corporate office implements non-discriminatory hiring practices and structural workstation modifications for disabled employees.</p>
+            <select id="q5" onchange="submitAns('q5', this.value)">
+                <option value="">-- Choose Applicable Law --</option>
+                <option value="RA7610">RA 7610 (Child Abuse Act)</option>
+                <option value="RA8371">RA 8371 (IPRA)</option>
+                <option value="CONST">Article XIV of the Constitution</option>
+                <option value="RA7277">RA 7277 (Magna Carta for PWDs)</option>
+            </select>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card">
+            <p><strong>6. Child Exploitation:</strong> Law enforcement targets, arrests, and penalizes criminal networks involved in child trafficking and commercial exploitation.</p>
+            <select id="q6" onchange="submitAns('q6', this.value)">
+                <option value="">-- Choose Applicable Law --</option>
+                <option value="RA7610">RA 7610 (Child Abuse Act)</option>
+                <option value="RA8371">RA 8371 (IPRA)</option>
+                <option value="CONST">Article XIV of the Constitution</option>
+                <option value="RA7277">RA 7277 (Magna Carta for PWDs)</option>
+            </select>
+        </div>
+
+        <!-- REAL-TIME SCOREBOARD -->
+        <div class="scoreboard-panel">
+            <h3>📊 Live Global Scoreboard (Real-Time)</h3>
+            <div id="live-scores"></div>
+        </div>
+
+        <!-- EXPLANATION SECTION (Hidden until time expires) -->
+        <div id="explanation-container" class="explanation-section hidden">
+            <h3>📖 Answer Key & Legal Explanations</h3>
+            
+            <div class="explanation-card">
+                <strong>Question 1 & 5: RA 7277 (Magna Carta for Disabled Persons)</strong><br>
+                <em>Explanation:</em> Guarantees equal opportunities, accessibility (ramps, elevators), and non-discriminatory employment for persons with disabilities (PWDs).
+            </div>
+
+            <div class="explanation-card">
+                <strong>Question 2 & 6: RA 7610 (Special Protection of Children Against Abuse, Exploitation and Discrimination Act)</strong><br>
+                <em>Explanation:</em> Provides robust state intervention and severe penalties against child labor, abuse, trafficking, and commercial exploitation.
+            </div>
+
+            <div class="explanation-card">
+                <strong>Question 3: RA 8371 (Indigenous Peoples' Rights Act - IPRA of 1997)</strong><br>
+                <em>Explanation:</em> Recognizes, protects, and promotes the rights of indigenous cultural communities/indigenous peoples (ICCs/IPs) to their ancestral domains.
+            </div>
+
+            <div class="explanation-card">
+                <strong>Question 4: Article XIV of the Philippine Constitution (Education, Science and Technology, Arts, Culture, and Sports)</strong><br>
+                <em>Explanation:</em> Mandates the state to prioritize education, foster patriotism and nationalism, accelerate social progress, and promote science and arts.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+    let myGroup = "";
+
+    function joinGroup(groupName) {
+        myGroup = groupName;
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        document.getElementById('group-title').textContent = `Logged in as: ${groupName}`;
+    }
+
+    function submitAns(questionId, answer) {
+        if (!answer) return;
+        socket.emit('submitAnswer', { groupName: myGroup, questionId, answer });
+    }
+
+    function requestStartTimer() {
+        socket.emit('startTimer');
+    }
+
+    // Listen to real-time updates from server
+    socket.on('updateState', ({ groupScores, timer, timerRunning }) => {
+        updateScoreboard(groupScores);
+        updateTimerDisplay(timer);
+        if (timerRunning) {
+            document.getElementById('start-timer-btn').style.display = 'none';
+        }
+    });
+
+    socket.on('timerStarted', ({ timer }) => {
+        document.getElementById('start-timer-btn').style.display = 'none';
+    });
+
+    socket.on('timerUpdate', (timer) => {
+        updateTimerDisplay(timer);
+    });
+
+    socket.on('timeUp', () => {
+        document.getElementById('timer-display').textContent = "⏰ TIME IS UP!";
+        document.getElementById('timer-display').style.background = "#c0392b";
+        
+        // Lock all dropdown selections
+        let selects = document.querySelectorAll('select');
+        selects.forEach(s => s.disabled = true);
+
+        // Show answer key explanations
+        document.getElementById('explanation-container').classList.remove('hidden');
+        alert("⏰ Time is up! The quiz is now locked. Review the correct answers and legal explanations below.");
+    });
+
+    socket.on('resetState', ({ groupScores, timer }) => {
+        location.reload(); // Refresh to clean state
+    });
+
+    function updateTimerDisplay(timeLeft) {
+        let mins = Math.floor(timeLeft / 60);
+        let secs = timeLeft % 60;
+        document.getElementById('timer-display').textContent = 
+            `Time Remaining: ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function updateScoreboard(groupScores) {
+        let html = "";
+        for (let g in groupScores) {
+            html += `<div class="score-row"><span>${g}</span> <span>${groupScores[g]} / 6 correct</span></div>`;
+        }
+        document.getElementById('live-scores').innerHTML = html;
+    }
+</script>
+
+</body>
+</html>
